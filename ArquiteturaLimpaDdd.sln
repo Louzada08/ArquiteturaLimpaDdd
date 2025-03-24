@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mapping", "Mapping", "{5ED1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{D2841AF3-ACDB-44E3-A599-CEED63C3F30D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestWithASPNET.Application", "..\..\RestWithASP\RestWith5ASP-NET5Udemy\RestWithASPNET.Application\RestWithASPNET.Application.csproj", "{03683C8D-9BC1-9D10-E3ED-622228585793}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArqLimpaDDD.Application", "..\..\RestWithASP\RestWith5ASP-NET5Udemy\RestWithASPNET.Application\ArqLimpaDDD.Application.csproj", "{03683C8D-9BC1-9D10-E3ED-622228585793}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
