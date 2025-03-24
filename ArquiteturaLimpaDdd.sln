@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArqLimpaDDD.Domain", "ArqLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArqLimpaDDD.WebApi", "ArqLimpaDDD.WebApi\ArqLimpaDDD.WebApi.csproj", "{2B97AEB6-5CE8-4348-B4F6-2314741C9C03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArqLimpaDDD.FrameworksAndDrivers", "ArqLimpaDDD.FrameworksAndDrivers\ArqLimpaDDD.FrameworksAndDrivers.csproj", "{975F2943-41BE-4535-A678-81D3505D2228}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{2B97AEB6-5CE8-4348-B4F6-2314741C9C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B97AEB6-5CE8-4348-B4F6-2314741C9C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B97AEB6-5CE8-4348-B4F6-2314741C9C03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975F2943-41BE-4535-A678-81D3505D2228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975F2943-41BE-4535-A678-81D3505D2228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975F2943-41BE-4535-A678-81D3505D2228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975F2943-41BE-4535-A678-81D3505D2228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{953F6205-6805-4312-9007-DED2E2B9F77A} = {D0A71B2B-2680-49FE-9B74-C3379028B021}
 		{6BE3AC2C-4CC8-4597-BB2F-B5146EE47AC3} = {533012BB-2D4F-4CF0-9C7F-27C624523D8B}
 		{2B97AEB6-5CE8-4348-B4F6-2314741C9C03} = {D2841AF3-ACDB-44E3-A599-CEED63C3F30D}
+		{975F2943-41BE-4535-A678-81D3505D2228} = {CE0EC253-DB7E-4885-88EF-C60008C67345}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E391CAC9-79C1-4E17-90B8-5498EF0ABE03}
