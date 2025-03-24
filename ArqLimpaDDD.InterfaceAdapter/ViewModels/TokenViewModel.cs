@@ -1,6 +1,4 @@
-﻿using ArqLimpaDDD.IOC;
-
-namespace ArqLimpaDDD.Adapter.ViewModels;
+﻿namespace ArqLimpaDDD.InterfaceAdapter.ViewModels;
 
 public class TokenViewModel
 {
@@ -17,9 +15,4 @@ public class TokenViewModel
     public string Expiration { get; set; }
     public string AccessToken { get; set; }
     public string RefreshToken { get; set; }
-
-    TokenViewModel ITokenViewModel<TokenViewModel>.TokenViewModel()
-    {
-        throw new NotImplementedException();
-    }
 }

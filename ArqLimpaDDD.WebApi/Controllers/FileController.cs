@@ -1,9 +1,8 @@
-﻿using Asp.Versioning;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ArqLimpaDDD.Application.Services.File;
+﻿using ArqLimpaDDD.Application.Services.File;
 using ArqLimpaDDD.Domain.Entities;
 using ArqLimpaDDD.Domain.ValueObjects;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArqLimpaDDD.WebApi.Controllers
 {

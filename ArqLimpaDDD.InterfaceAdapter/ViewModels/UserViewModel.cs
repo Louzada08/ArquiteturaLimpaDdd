@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ArqLimpaDDD.Adapter.ViewModels;
+namespace ArqLimpaDDD.InterfaceAdapter.ViewModels;
 
 public class UserVM
 {

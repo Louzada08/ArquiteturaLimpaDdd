@@ -1,10 +1,9 @@
-﻿using Asp.Versioning;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ArqLimpaDDD.Adapter.ViewModels;
+using ArqLimpaDDD.InterfaceAdapter.ViewModels;
 using ArqLimpaDDD.Application.Commands.Users.Requests;
 using ArqLimpaDDD.Application.Interfaces.Users;
 using ArqLimpaDDD.Application.Services.Token;

@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArqLimpaDDD.Application\ArqLimpaDDD.Application.csproj" />
+    <ProjectReference Include="..\ArqLimpaDDD.Domain\ArqLimpaDDD.Domain.csproj" />
+    <ProjectReference Include="..\ArqLimpaDDD.InterfaceAdapter\ArqLimpaDDD.InterfaceAdapter.csproj" />
+    <ProjectReference Include="..\ArqLimpaDDD.IOC\ArqLimpaDDD.IOC.csproj" />
   </ItemGroup>
 
 </Project>

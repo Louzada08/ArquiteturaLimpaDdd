@@ -1,8 +1,7 @@
+using ArqLimpaDDD.IOC.AutoMapperInjector;
+using ArqLimpaDDD.IOC.ServicesInjector;
 using ArqLimpaDDD.WebApi.Configuration;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using ArqLimpaDDD.FrameWrkDrivers.Services;
-using ArqLimpaDDD.WebApi.Configuration;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
