@@ -9,8 +9,8 @@ namespace ArqLimpaDDD.FrameWrkDrivers.Repositories
 {
     public class PersonRepository : GenericRepository<Person>, IPersonRepository
     {
-        private readonly MySQLContext _context;
-        public PersonRepository(MySQLContext context, IMapper mapper) : base(context, mapper)
+        private readonly DbSQLContext _context;
+        public PersonRepository(DbSQLContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
         }

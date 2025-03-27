@@ -12,10 +12,14 @@ namespace ArqLimpaDDD.FrameWrkDrivers.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.title)
                 .IsRequired(false)
-                .HasColumnType("longtext");
+                .HasColumnType("varchar(max)");
 
-            builder.HasOne(x => x.CreatedBy)
-                .WithMany().OnDelete(DeleteBehavior.NoAction);
+            builder.Property(u => u.price)
+                .IsRequired(false)
+                .HasColumnType("decimal(7,2)");
+
+            //builder.HasOne(x => x.CreatedBy)
+            //    .WithMany().OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

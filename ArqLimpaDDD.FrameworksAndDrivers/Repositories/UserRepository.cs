@@ -11,7 +11,7 @@ namespace ArqLimpaDDD.FrameWrkDrivers.Repositories
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        public UserRepository(MySQLContext context, IMapper mapper) : base(context, mapper) { }
+        public UserRepository(DbSQLContext context, IMapper mapper) : base(context, mapper) { }
 
         public User ValidateCredentials(UserVO user)
         {

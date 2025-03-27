@@ -32,7 +32,7 @@ public class AuthService : IAuthService
             var userEmail = loggedUser.Claims.Where(c => c.Type.Contains("emailaddress")).FirstOrDefault()?.Value;
             if (userEmail is null) return null;
 
-            return await _userRepository.QueryableFor(p => p.UserName.Equals(userEmail)).FirstOrDefaultAsync();
+            return await _userRepository.QueryableFor(p => p.UserName!.Equals(userEmail)).FirstOrDefaultAsync();
         }
         catch (Exception e)
         {

@@ -20,9 +20,9 @@ public class PatchUserRequest : Command, IBase
     public string UserName { get; set; } = string.Empty;
     public string FullName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public DateTime? CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-    public DateTime? DeletedAt { get; set; }
+    public DateTime? createdat { get; set; }
+    public DateTime? updatedat { get; set; }
+    public DateTime? deletedat { get; set; }
     public override bool IsValid()
     {
         ValidationResult = new PatchUserValidation().Validate(this);

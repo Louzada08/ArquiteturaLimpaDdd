@@ -12,17 +12,17 @@ builder.Services.AddAuthorizationRestUdemyConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
 
-var connection = builder.Configuration.GetConnectionString("MySQLConnectionString");
+var connection = builder.Configuration.GetConnectionString("DbSQLConnectionString");
 
 builder.Services.AddDbContextInjector(connection);
 builder.Services.AddServicesInjector();
+builder.Services.AddMediatorInjector();
 
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 });
 
-builder.Services.AddMediatorInjector();
 builder.Services.AddAutoMapperInjector();
 
 #region Configure CORS

@@ -17,10 +17,10 @@ namespace ArqLimpaDDD.WebApi.Controllers
     [Route("api/[controller]/v{version:apiVersion}")]
     public class AuthController : MainController
     {
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
         private readonly IUserService _userService;
 
-        public AuthController(IMapper mapper, IMediator mediator, TokenService tokenService,
+        public AuthController(IMapper mapper, IMediator mediator, ITokenService tokenService,
                  IUserService userService) : base(mapper, mediator)
         {
             _userService = userService;
@@ -43,8 +43,8 @@ namespace ArqLimpaDDD.WebApi.Controllers
 
                 var response = await _mediator.Send(command);
 
-                var tokenVM = _mapper.Map<TokenViewModel>(response);
-
+                var tokenVM = _tokenService.GenerateAccessToken(command.Email, command.UserRole);
+                 
                 return CustomResponse(tokenVM);
             }
             catch (Exception ex)

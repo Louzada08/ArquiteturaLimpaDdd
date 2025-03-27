@@ -15,9 +15,9 @@ namespace ArqLimpaDDD.Domain.ValueObjects.ConverterVO
                 LastName = origin.LastName,
                 Address = origin.Address,
                 Gender = origin.Gender,
-                CreatedAt = origin.createdat,
-                UpdatedAt = origin.updatedat,
-                DeletedAt  = origin.deletedat
+                createdat = origin.createdat,
+                updatedat = origin.updatedat,
+                deletedat  = origin.deletedat
             };
         }
         public PersonVO Person(Person origin)
@@ -30,9 +30,9 @@ namespace ArqLimpaDDD.Domain.ValueObjects.ConverterVO
                 LastName = origin.LastName,
                 Address = origin.Address,
                 Gender = origin.Gender,
-                createdat = origin.CreatedAt,
-                updatedat = origin.UpdatedAt,
-                deletedat = origin.DeletedAt
+                createdat = origin.createdat,
+                updatedat = origin.updatedat,
+                deletedat = origin.deletedat
             };
         }
 

@@ -13,11 +13,11 @@ using System.Data.Common;
 
 namespace ArqLimpaDDD.FrameWrkDrivers.Data.Context
 {
-    public class MySQLContext : DbContext, IUnitOfWork
+    public class DbSQLContext : DbContext, IUnitOfWork
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public MySQLContext(DbContextOptions<MySQLContext> options, IMediatorHandler mediatorHandler) : 
+        public DbSQLContext(DbContextOptions<DbSQLContext> options, IMediatorHandler mediatorHandler) : 
             base(options) 
         {
             _mediatorHandler = mediatorHandler;

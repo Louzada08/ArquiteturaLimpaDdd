@@ -3,6 +3,9 @@ using ArqLimpaDDD.Application.Interfaces.Users;
 using ArqLimpaDDD.Domain.Entities;
 using ArqLimpaDDD.Domain.Filter;
 using ArqLimpaDDD.Domain.Interfaces.Repositories;
+using ArqLimpaDDD.Domain.ValueObjects;
+using Microsoft.VisualBasic;
+using System.Security.Claims;
 
 namespace ArqLimpaDDD.Application.Services.Users;
 public class UserService : IUserService
@@ -29,6 +32,36 @@ public class UserService : IUserService
         return ret;
     }
 
+    //private object GeraJWT(string email)
+    //{
+    //    var user = _repository.ValidateCredentials(userCredentials);
+    //    if (user == null) return null;
+
+    //    var claims = new List<Claim>
+    //        {
+    //            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+    //            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
+    //        };
+
+    //    var accessToken = _tokenService.GenerateAccessToken(claims);
+    //    var refreshToken = _tokenService.GenerateRefreshToken();
+
+    //    user.RefreshToken = refreshToken;
+    //    user.RefreshTokenExpiryTime = DateTime.Now.AddDays(_configuration.DaysToExpiry);
+
+    //    _repository.RefreshUserInfo(user);
+
+    //    DateTime createDate = DateTime.Now;
+    //    DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
+    //    return new TokenVO(
+    //        true,
+    //        createDate.ToString(DATE_FORMAT),
+    //        expirationDate.ToString(DATE_FORMAT),
+    //        accessToken,
+    //        refreshToken
+    //    );
+    //}
+
     public async Task<User?> GetByEmail(string email)
     {
         return await _repository.QueryableFor(p => p.FullName.Equals(email))
@@ -52,7 +85,7 @@ public class UserService : IUserService
         if(string.IsNullOrEmpty(nomeLoja)) return new List<User>();
 
         var users = await _repository
-            .QueryableFor(x => x.FullName.Equals(nomeLoja))
+            .QueryableFor(x => x.FullName!.Equals(nomeLoja))
             .AsNoTracking()
             .ToListAsync();
 

@@ -11,13 +11,13 @@ namespace ArqLimpaDDD.Domain.ValueObjects.ConverterVO
             return new Book
             {
                 Id = origin.Id,
-                Author = origin.Author,
-                Launch_Date = origin.Launch_Date,
-                Price = origin.Price,
+                author = origin.Author,
+                launch_date = origin.Launch_Date,
+                price = origin.Price,
                 title = origin.title,
-                CreatedAt = origin.createdat,
-                UpdatedAt = origin.updatedat,
-                DeletedAt = origin.deletedat
+                createdat = origin.createdat,
+                updatedat = origin.updatedat,
+                deletedat = origin.deletedat
             };
         }
         public BookVO Book(Book origin)
@@ -26,13 +26,13 @@ namespace ArqLimpaDDD.Domain.ValueObjects.ConverterVO
             return new BookVO
             {
                 Id = origin.Id,
-                Author = origin.Author,
-                Launch_Date = origin.Launch_Date,
-                Price = origin.Price,
+                Author = origin.author,
+                Launch_Date = origin.launch_date,
+                Price = origin.price,
                 title = origin.title,
-                createdat = origin.CreatedAt,
-                updatedat = origin.UpdatedAt,
-                deletedat = origin.DeletedAt
+                createdat = origin.createdat,
+                updatedat = origin.updatedat,
+                deletedat = origin.deletedat
             };
         }
 

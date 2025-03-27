@@ -5,7 +5,7 @@ namespace ArqLimpaDDD.Application.Services.Token;
 
 public interface ITokenService
 {
-    string GenerateAccessToken(User user);
+    string GenerateAccessToken(string email, UserRolesEnum userRole);
     string GenerateRefreshToken();
     ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     ClaimsPrincipal GetPrincipalToken(string token);

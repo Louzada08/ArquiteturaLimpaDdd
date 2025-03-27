@@ -4,20 +4,22 @@ using Microsoft.EntityFrameworkCore;
 using ArqLimpaDDD.Domain.Interfaces.Repositories;
 using ArqLimpaDDD.FrameWrkDrivers.Data.Context;
 using System.Linq.Expressions;
+using ArqLimpaDDD.Domain.Entities.Base;
 
 namespace ArqLimpaDDD.FrameWrkDrivers.Repositories.Generic
 {
     public class GenericRepository<T> : IGenericRepository<T>, IDisposable where T : class
     {
-        protected MySQLContext _context { get; }
+        protected DbSQLContext _context { get; }
         protected IUnitOfWork UnitOfWork { get; set; }
+
 
         IUnitOfWork IGenericRepository<T>.UnitOfWork => UnitOfWork;
 
         protected readonly DbSet<T> dataset;
         private readonly IMapper _mapper;
 
-        public GenericRepository(MySQLContext context, IMapper mapper)
+        public GenericRepository(DbSQLContext context, IMapper mapper)
         {
             _context = context;
             dataset = _context.Set<T>();
@@ -27,12 +29,12 @@ namespace ArqLimpaDDD.FrameWrkDrivers.Repositories.Generic
 
         public T Create(T entity)
         {
-            //if(entity is BaseEntity baseEntity)
-            //{
-            //    baseEntity.CreatedAt = DateTime.UtcNow;
-            //    baseEntity.UpdatedAt = DateTime.UtcNow; 
-            //}
-                dataset.Add(entity);
+            if (entity is BaseEntity baseEntity)
+            {
+                baseEntity.createdat = DateTime.UtcNow;
+                baseEntity.updatedat = DateTime.UtcNow;
+            }
+            dataset.Add(entity);
                 return entity;
         }
 

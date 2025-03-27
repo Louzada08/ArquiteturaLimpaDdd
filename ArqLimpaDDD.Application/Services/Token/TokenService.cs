@@ -1,7 +1,9 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using ArqLimpaDDD.Application.Interfaces.Users;
 using ArqLimpaDDD.Domain.Configuration;
 using ArqLimpaDDD.Domain.Entities;
 using ArqLimpaDDD.Domain.Enums.Extension;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -11,47 +13,42 @@ namespace ArqLimpaDDD.Application.Services.Token;
 
 public class TokenService : ITokenService
 {
-    private TokenConfiguration _configuration;
+    private readonly IUserService _userService;
+    private readonly IConfiguration _configuration;
 
-    public TokenService(TokenConfiguration configuration)
+    public TokenService(IUserService userService, IConfiguration configuration)
     {
+        _userService = userService;
         _configuration = configuration;
     }
 
-    public string GenerateAccessToken(User user)
+    public string GenerateAccessToken(string email, UserRolesEnum userRole)
     {
         //classe usada para criar e validar tokens de segurança de fato 
+
+        //TokenConfiguration tokenConfiguration = new TokenConfiguration();
+        //var tokenConfig = _configuration.GetSection("TokenConfigurations");
+
+        var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenConfigurations:Secret"] ?? string.Empty));
+        var issuer = _configuration["TokenConfigurations:Issuer"];
+        var audience = _configuration["TokenConfigurations:Audience"];
+        var expires = DateTime.Now.AddMinutes(int.Parse(_configuration["TokenConfigurations:Minutes"] ?? "2"));
+
+        var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: issuer,
+            audience: audience,
+            claims: new[]
+            {
+                new Claim(ClaimTypes.Name, email),
+                new Claim(ClaimTypes.Role, EnumExtensions.GetEnumDescription(userRole))
+            },
+            expires: expires,
+            signingCredentials: signingCredentials
+        );
+
         var tokenHandler = new JwtSecurityTokenHandler();
-
-        var secretKey = Encoding.UTF8.GetBytes(_configuration.Secret);
-        var signingCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256);
-        var claims = new ClaimsIdentity();
-
-        claims.AddClaim(new Claim(ClaimTypes.Role, EnumExtensions.GetEnumDescription(user.UserRole)));
-
-        //var options = new JwtSecurityToken(
-        //    issuer: _configuration.Issuer,
-        //    audience: _configuration.Audience,
-        //    claims: claims,
-        //    expires: DateTime.Now.AddMinutes(_configuration.Minutes),
-        //    signingCredentials: signinCredentials
-
-
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Issuer = _configuration.Issuer,
-            Audience = _configuration.Audience,
-            Expires = DateTime.Now.AddMinutes(_configuration.Minutes),
-            Subject = claims,
-            SigningCredentials = signingCredentials
-        };
-
-        //pega os dados do usuário from database pelo email;
-
-        // tokenDescriptor.Subject = claimsIdentity;
-        
-        var token = tokenHandler.CreateToken(tokenDescriptor);
 
         return tokenHandler.WriteToken(token);
     }
@@ -73,7 +70,7 @@ public class TokenService : ITokenService
             ValidateAudience = false,
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret)),
+          //  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret)),
             ValidateLifetime = false
         };
         var tokenHandler = new JwtSecurityTokenHandler();

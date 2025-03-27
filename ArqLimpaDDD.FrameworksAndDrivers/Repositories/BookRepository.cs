@@ -8,8 +8,8 @@ namespace ArqLimpaDDD.FrameWrkDrivers.Repositories
 {
     public class BookRepository : GenericRepository<Book>, IBookRepository
     {
-        private readonly MySQLContext _context;
-        public BookRepository(MySQLContext context, IMapper mapper) : base(context, mapper)
+        private readonly DbSQLContext _context;
+        public BookRepository(DbSQLContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
         }

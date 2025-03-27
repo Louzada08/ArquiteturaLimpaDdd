@@ -19,6 +19,6 @@ public static class EFFilterExtensions
     public static void SetSoftDeleteFilter<TEntity>(this ModelBuilder modelBuilder)
         where TEntity : class, IBase
     {
-        modelBuilder.Entity<TEntity>().HasQueryFilter(x => x.DeletedAt == null);
+        modelBuilder.Entity<TEntity>().HasQueryFilter(x => x.deletedat == null);
     }
 }
