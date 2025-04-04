@@ -4,18 +4,18 @@ namespace ArqLimpaDDD.Domain.Entities;
 
 public enum UserRolesEnum
 {
-    [Description("Backoffice Administrador")]
+    [Description("Administrador")]
     Administrator = 1,
-    [Description("Backoffice Analista Backoffice")]
+    [Description("Analista")]
     VendasAnalyst = 2,
-    [Description("Vendedores")]
+    [Description("Vendedor")]
     Seller = 3,
-    [Description("Backoffice Analista de compras")]
+    [Description("Analista de compras")]
     PurchaseAnalyst = 4,
-    [Description("Backoffice Analista Financeiro")]
+    [Description("Analista Financeiro")]
     FinancialAnalyst = 5,
-    [Description("Backoffice Gerente de Loja")]
+    [Description("Gerente")]
     StoreManager = 6,
-    [Description("Backoffice Analista de Operacoes")]
+    [Description("Analista de Operacoes")]
     OperationsAnalyst = 7,
 }

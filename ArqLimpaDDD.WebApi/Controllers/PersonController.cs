@@ -1,20 +1,21 @@
-﻿using AutoMapper;
-using FluentValidation.Results;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ArqLimpaDDD.Application.Commands.Persons.Requests;
+﻿using ArqLimpaDDD.Application.Commands.Persons.Requests;
 using ArqLimpaDDD.Application.Commands.Persons.Responses;
 using ArqLimpaDDD.Application.Services.Persons;
 using ArqLimpaDDD.Domain.Filter;
 using ArqLimpaDDD.Domain.Validation;
 using ArqLimpaDDD.Domain.ValueObjects;
+using ArqLimpaDDD.WebApi.Configuration;
+using AutoMapper;
+using FluentValidation.Results;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArqLimpaDDD.WebApi.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
-    [Authorize("Bearer")]
+    [Authorize]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : MainController
     {
@@ -30,15 +31,18 @@ namespace ArqLimpaDDD.WebApi.Controllers
         [ProducesResponseType((200), Type = typeof(PersonVO))]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ClaimsAuthorize(ClaimsTypes.Vendas, "Vendedor")]
         public async Task<IActionResult> GetAllPerson()
         {
-            return Ok(await _personService.GetAll());
+             return Ok(await _personService.GetAll());
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType((200), Type = typeof(PersonVO))]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [ClaimsAuthorize(ClaimsTypes.Analista, "Senior")]
         public async Task<IActionResult> GetPersonById(Guid id)
         {
             try

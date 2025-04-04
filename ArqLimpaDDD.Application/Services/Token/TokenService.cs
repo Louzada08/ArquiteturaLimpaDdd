@@ -1,7 +1,6 @@
 ﻿using ArqLimpaDDD.Application.Interfaces.Users;
-using ArqLimpaDDD.Domain.Configuration;
 using ArqLimpaDDD.Domain.Entities;
-using ArqLimpaDDD.Domain.Enums.Extension;
+using ArqLimpaDDD.Domain.ValueObjects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,6 +12,8 @@ namespace ArqLimpaDDD.Application.Services.Token;
 
 public class TokenService : ITokenService
 {
+    private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     private readonly IUserService _userService;
     private readonly IConfiguration _configuration;
 
@@ -21,14 +22,9 @@ public class TokenService : ITokenService
         _userService = userService;
         _configuration = configuration;
     }
-
-    public string GenerateAccessToken(string email, UserRolesEnum userRole)
-    {
-        //classe usada para criar e validar tokens de segurança de fato 
-
-        //TokenConfiguration tokenConfiguration = new TokenConfiguration();
-        //var tokenConfig = _configuration.GetSection("TokenConfigurations");
-
+    
+    public TokenVO GenerateAccessToken(string email, UserRolesEnum userRole, IList<Claim> claims)
+    { 
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenConfigurations:Secret"] ?? string.Empty));
         var issuer = _configuration["TokenConfigurations:Issuer"];
         var audience = _configuration["TokenConfigurations:Audience"];
@@ -36,21 +32,44 @@ public class TokenService : ITokenService
 
         var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
+        claims.Add(new Claim(JwtRegisteredClaimNames.Sub, email));
+        claims.Add(new Claim(ClaimTypes.Email, email));
+
+        //foreach (var elem in Enum.GetValues(typeof(UserRolesEnum)))
+        //{
+        //    claims.Add(new Claim(ClaimTypes.Role, EnumExtensions.GetEnumDescription((Enum)elem)));
+        //}
+
+
         var token = new JwtSecurityToken(
             issuer: issuer,
             audience: audience,
-            claims: new[]
-            {
-                new Claim(ClaimTypes.Name, email),
-                new Claim(ClaimTypes.Role, EnumExtensions.GetEnumDescription(userRole))
-            },
+            claims: claims,
+            //claims: new[]
+            //{
+            //    new Claim(ClaimTypes.Name, email),
+            //    new Claim(ClaimTypes.Role, userRole.ToString())
+            //},
+
             expires: expires,
             signingCredentials: signingCredentials
         );
 
+
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        return tokenHandler.WriteToken(token);
+        var refreshToken = GenerateRefreshToken();
+
+        DateTime createDate = DateTime.Now;
+        DateTime expirationDate = expires;
+
+        return new TokenVO(
+            true,
+            createDate.ToString(DATE_FORMAT),
+            expirationDate.ToString(DATE_FORMAT),
+            tokenHandler.WriteToken(token),
+            refreshToken
+            );
     }
 
     public string GenerateRefreshToken()
@@ -96,4 +115,5 @@ public class TokenService : ITokenService
         ClaimsPrincipal principal = null;
         return principal;
     }
+
 }

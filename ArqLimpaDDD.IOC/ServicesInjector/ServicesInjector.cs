@@ -10,6 +10,7 @@ using ArqLimpaDDD.FrameWrkDrivers.Data.Context;
 using ArqLimpaDDD.FrameWrkDrivers.Repositories;
 using ArqLimpaDDD.FrameWrkDrivers.Repositories.Generic;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,7 +22,7 @@ public static class ServicesInjector
     public static IServiceCollection AddServicesInjector(this IServiceCollection services)
     {
         services.AddScoped<DbSQLContext>();
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddTransient<ITokenService,TokenService>();
 
         services.AddScoped<IPersonService, PersonServiceImplementation>();
         services.AddScoped<IPersonRepository, PersonRepository>();
@@ -42,6 +43,11 @@ public static class ServicesInjector
     public static IServiceCollection AddDbContextInjector(this IServiceCollection services, string connection)
     {
         services.AddDbContext<DbSQLContext>(options => options.UseSqlServer(connection));
+
+        services.AddDefaultIdentity<IdentityUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<DbSQLContext>()
+            .AddDefaultTokenProviders();
 
         return services;
     }
