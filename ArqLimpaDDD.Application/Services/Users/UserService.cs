@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ArqLimpaDDD.Application.Interfaces.Users;
+﻿using ArqLimpaDDD.Application.Interfaces.Users;
+using ArqLimpaDDD.Domain.Dtos;
 using ArqLimpaDDD.Domain.Entities;
 using ArqLimpaDDD.Domain.Filter;
 using ArqLimpaDDD.Domain.Interfaces.Repositories;
 using ArqLimpaDDD.Domain.ValueObjects;
-using Microsoft.VisualBasic;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ArqLimpaDDD.Application.Services.Users;
 public class UserService : IUserService
@@ -91,4 +93,24 @@ public class UserService : IUserService
 
         return users;
     }
+
+    public async Task<User?> ValidationUser(UserLoginDTO userLogin)
+    {
+        var pass = ComputeHash(userLogin.Password, new SHA256CryptoServiceProvider());
+
+        var user = await _repository.QueryableFor(u => (u.Email == userLogin.Email) && 
+            (u.Password == pass)).FirstOrDefaultAsync();
+        
+        if (user == null) return null;
+ 
+        return user;
+    }
+
+    private string ComputeHash(string input, SHA256CryptoServiceProvider algorithm)
+    {
+        Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+        Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
+        return BitConverter.ToString(hashedBytes);
+    }
+
 }

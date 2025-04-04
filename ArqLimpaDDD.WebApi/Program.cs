@@ -7,7 +7,6 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthorizationRestUdemyConfiguration(builder.Configuration);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -82,6 +81,7 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -98,6 +98,7 @@ x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

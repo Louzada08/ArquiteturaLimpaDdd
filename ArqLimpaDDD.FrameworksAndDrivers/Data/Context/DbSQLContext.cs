@@ -10,10 +10,11 @@ using ArqLimpaDDD.Domain.Messages;
 using ArqLimpaDDD.FrameWrkDrivers.Extensions;
 using ArqLimpaDDD.FrameWrkDrivers.Mapping;
 using System.Data.Common;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ArqLimpaDDD.FrameWrkDrivers.Data.Context
 {
-    public class DbSQLContext : DbContext, IUnitOfWork
+    public class DbSQLContext : IdentityDbContext, IUnitOfWork
     {
         private readonly IMediatorHandler _mediatorHandler;
 
